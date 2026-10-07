@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 
@@ -23,21 +24,15 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> origin/main
+    # JWT Authentication
     JWT_SECRET_KEY = os.getenv(
         "JWT_SECRET_KEY",
         SECRET_KEY
     )
 
-<<<<<<< HEAD
+    # Access token lifetime: 1 hour
     JWT_ACCESS_TOKEN_EXPIRES = 3600
 
-    # OpenAI
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-=======
-    JWT_ACCESS_TOKEN_EXPIRES = 3600
->>>>>>> origin/main
+    # Google Gemini / AI Studio
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")

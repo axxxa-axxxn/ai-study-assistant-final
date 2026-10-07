@@ -8,12 +8,12 @@ def ask_rag(question, use_ai=True):
     from the study documents.
 
     use_ai=True:
-        Uses the configured OpenAI model to generate
+        Uses the configured Gemini model to generate
         a student-friendly answer based on retrieved context.
 
     use_ai=False:
         Returns the retrieved context for development/testing
-        without calling the OpenAI API.
+        without calling the Gemini API.
     """
 
     # --------------------------------------------------------
@@ -88,7 +88,7 @@ ANSWER
     else:
 
         answer = (
-            "Development mode: OpenAI generation is disabled.\n\n"
+            "Development mode: AI generation is disabled.\n\n"
             "The following information was retrieved from the "
             "study material:\n\n"
             + context

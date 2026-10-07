@@ -57,7 +57,6 @@ export async function getCurrentUser() {
   }
 
   return data;
-<<<<<<< HEAD
 }
 
 
@@ -91,6 +90,3 @@ export async function askRag(question) {
 
   return data;
 }
-=======
-}
->>>>>>> origin/main

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import {
   GraduationCap,
   Mail,
@@ -14,9 +13,6 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-=======
-import { GraduationCap, Mail, Lock } from "lucide-react";
->>>>>>> origin/main
 import { loginUser } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 
@@ -31,23 +27,17 @@ function Login() {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
   const [showPassword, setShowPassword] = useState(false);
-=======
->>>>>>> origin/main
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-<<<<<<< HEAD
 
     if (error) {
       setError("");
     }
-=======
->>>>>>> origin/main
   };
 
   const handleLogin = async (e) => {
@@ -57,28 +47,14 @@ function Login() {
     setLoading(true);
 
     try {
-<<<<<<< HEAD
       const data = await loginUser(formData);
 
-=======
-      // Send login request to Flask backend
-      const data = await loginUser(formData);
-
-      // Make sure backend returned an access token
->>>>>>> origin/main
       if (!data.access_token) {
         throw new Error("Login failed: no access token received.");
       }
 
-<<<<<<< HEAD
       login(data.access_token, data.user);
 
-=======
-      // Store authentication and user information
-      login(data.access_token, data.user);
-
-      // Login successful → Dashboard
->>>>>>> origin/main
       navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Invalid email or password.");
@@ -89,7 +65,6 @@ function Login() {
 
   return (
     <div className="auth-page">
-<<<<<<< HEAD
       {/* Decorative background */}
       <div className="auth-bg-shape auth-bg-shape-one"></div>
       <div className="auth-bg-shape auth-bg-shape-two"></div>
@@ -300,90 +275,9 @@ function Login() {
             </p>
           </div>
         </div>
-=======
-      <div className="auth-card">
-
-        <div className="logo">
-          <GraduationCap size={42} />
-        </div>
-
-        <h1>AI Study Assistant</h1>
-
-        <p className="subtitle">
-          Your intelligent companion for smarter learning.
-        </p>
-
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleLogin}>
-
-          <div className="input-group">
-            <label htmlFor="email">Email</label>
-
-            <div className="input-wrapper">
-              <Mail size={18} />
-
-              <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                autoComplete="email"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-
-            <div className="input-wrapper">
-              <Lock size={18} />
-
-              <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                autoComplete="current-password"
-                required
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="primary-button"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-
-        </form>
-
-        <p className="auth-footer">
-          Don't have an account?{" "}
-          <Link to="/register">
-            Create an account
-          </Link>
-        </p>
-
->>>>>>> origin/main
       </div>
     </div>
   );
 }
 
-<<<<<<< HEAD
 export default Login;
-=======
-export default Login;
->>>>>>> origin/main

@@ -1,16 +1,14 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (
     create_access_token,
+    create_refresh_token,
     jwt_required,
     get_jwt_identity
 )
 
 from app import db
 from app.models import User
-<<<<<<< HEAD
 from rag.rag_service import ask_rag
-=======
->>>>>>> origin/main
 
 
 main_bp = Blueprint("main", __name__)
@@ -32,6 +30,10 @@ def health_check():
         "service": "AI Study Assistant Backend"
     })
 
+
+# ============================================================
+# AUTHENTICATION - REGISTER
+# ============================================================
 
 @main_bp.route("/api/auth/register", methods=["POST"])
 def register():
@@ -84,6 +86,10 @@ def register():
     }), 201
 
 
+# ============================================================
+# AUTHENTICATION - LOGIN
+# ============================================================
+
 @main_bp.route("/api/auth/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -113,7 +119,13 @@ def login():
             "message": "Invalid email or password"
         }), 401
 
+    # Create short-lived access token
     access_token = create_access_token(
+        identity=str(user.id)
+    )
+
+    # Create long-lived refresh token
+    refresh_token = create_refresh_token(
         identity=str(user.id)
     )
 
@@ -121,6 +133,7 @@ def login():
         "success": True,
         "message": "Login successful",
         "access_token": access_token,
+        "refresh_token": refresh_token,
         "user": {
             "id": user.id,
             "name": user.name,
@@ -128,6 +141,29 @@ def login():
         }
     }), 200
 
+
+# ============================================================
+# AUTHENTICATION - REFRESH ACCESS TOKEN
+# ============================================================
+
+@main_bp.route("/api/auth/refresh", methods=["POST"])
+@jwt_required(refresh=True)
+def refresh():
+    user_id = get_jwt_identity()
+
+    new_access_token = create_access_token(
+        identity=str(user_id)
+    )
+
+    return jsonify({
+        "success": True,
+        "access_token": new_access_token
+    }), 200
+
+
+# ============================================================
+# AUTHENTICATION - CURRENT USER
+# ============================================================
 
 @main_bp.route("/api/auth/me", methods=["GET"])
 @jwt_required()
@@ -149,9 +185,12 @@ def get_current_user():
             "name": user.name,
             "email": user.email
         }
-<<<<<<< HEAD
     }), 200
 
+
+# ============================================================
+# AI CHAT
+# ============================================================
 
 @main_bp.route("/api/ai/chat", methods=["POST"])
 @jwt_required()
@@ -190,6 +229,7 @@ def ai_chat():
             "success": False,
             "message": str(e)
         }), 500
+
 
 # ============================================================
 # RAG CHAT ENDPOINT - PHASE 3 AI ANSWER GENERATION
@@ -235,6 +275,3 @@ def rag_chat():
             "message": "RAG service failed",
             "error": str(e)
         }), 500
-=======
-    }), 200
->>>>>>> origin/main
