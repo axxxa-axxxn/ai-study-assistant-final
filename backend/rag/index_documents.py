@@ -1,6 +1,7 @@
 from .loader import load_documents
 from .splitter import split_documents
 from .vector_store import get_vector_store
+from .config import VECTOR_DB_DIR
 
 
 def index_documents():
@@ -24,8 +25,7 @@ def index_documents():
     vector_store.add_documents(chunks)
 
     print("Documents successfully indexed!")
-    print("Vector database location:")
-    print(vector_store._persist_directory)
+    print(f"Vector database location: {VECTOR_DB_DIR}")
 
 
 if __name__ == "__main__":

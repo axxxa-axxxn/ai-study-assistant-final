@@ -21,5 +21,5 @@ CHUNK_OVERLAP = 150
 # Number of documents returned during retrieval
 TOP_K = 5
 
-# Local embedding model
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+# Gemini embedding model
+GEMINI_EMBEDDING_MODEL = "models/gemini-embedding-001"

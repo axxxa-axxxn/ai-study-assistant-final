@@ -1,11 +1,17 @@
-from langchain_huggingface import HuggingFaceEmbeddings
+import os
+from dotenv import load_dotenv
 
-from .config import EMBEDDING_MODEL
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
+from .config import GEMINI_EMBEDDING_MODEL
+
+
+# Load environment variables from backend/.env
+load_dotenv()
 
 
 def get_embeddings():
-    return HuggingFaceEmbeddings(
-        model_name=EMBEDDING_MODEL,
-        model_kwargs={"device": "cpu"},
-        encode_kwargs={"normalize_embeddings": True},
+    return GoogleGenerativeAIEmbeddings(
+        model=GEMINI_EMBEDDING_MODEL,
+        google_api_key=os.getenv("GEMINI_API_KEY"),
     )
