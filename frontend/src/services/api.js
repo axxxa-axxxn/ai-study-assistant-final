@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = "https://ai-study-assistant-final-9od2.vercel.app";
 
 export async function registerUser(userData) {
   const response = await fetch(`${API_URL}/api/auth/register`, {
