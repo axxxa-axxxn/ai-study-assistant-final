@@ -32,6 +32,33 @@ def health_check():
 
 
 # ============================================================
+# DATABASE HEALTH CHECK - TEMPORARY
+# ============================================================
+
+@main_bp.route("/api/db-health", methods=["GET"])
+def db_health():
+    try:
+        from sqlalchemy import text
+
+        result = db.session.execute(text("SELECT 1"))
+        result.fetchone()
+
+        return jsonify({
+            "success": True,
+            "database": "connected"
+        }), 200
+
+    except Exception as e:
+        print("DATABASE ERROR:", repr(e))
+
+        return jsonify({
+            "success": False,
+            "database": "connection failed",
+            "error": str(e)
+        }), 500
+
+
+# ============================================================
 # AUTHENTICATION - REGISTER
 # ============================================================
 
